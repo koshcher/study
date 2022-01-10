@@ -42,13 +42,6 @@ namespace KeyboardTrainer
         public MainWindow()
         {
             InitializeComponent();
-            /*
-            
-            Keyboard.Focus(InputText);
-               InputText.Text = InputText.Focusable.ToString();
-
-            {Key.OemBackslash, Backslash },
-            */
             keyBorderPairs = new Dictionary<Key, Border> 
             {
                {Key.Oem3, Tilda}, {Key.D1, One}, {Key.D2, Two}, {Key.D3, Three}, {Key.D4, Four}, {Key.D5, Five}, {Key.D6, Six}, {Key.D7, Seven},
@@ -72,7 +65,6 @@ namespace KeyboardTrainer
                 currentBorder.Background = new SolidColorBrush(Colors.White);
                 previousBorder = currentBorder;
             }
-
         }
 
         private void KeyClick(object sender, System.Windows.Input.KeyEventArgs e)
@@ -88,6 +80,11 @@ namespace KeyboardTrainer
                 {
                     test.IsGoing = true;
                     test.startTime = DateTime.Now;
+                }
+
+                if (e.Key == Key.LeftShift || e.Key == Key.RightShift || e.Key == Key.CapsLock)
+                {
+                    return;
                 }
 
                 // Chack Space
@@ -123,12 +120,26 @@ namespace KeyboardTrainer
                     {
                         InputText.Text += letter;
                     }
+                    foreach (var key in keyBorderPairs)
+                    {
+                        if (keyCharUpper.TryGetValue(key.Key, out letter))
+                        {
+                            ((TextBlock)key.Value.Child).Text = letter.ToString();
+                        }
+                    }
                 }
                 else
                 {
                     if (keyCharLower.TryGetValue(e.Key, out letter))
                     {
                         InputText.Text += letter;
+                    }
+                    foreach (var key in keyBorderPairs)
+                    {
+                        if (keyCharLower.TryGetValue(key.Key, out letter))
+                        {
+                            ((TextBlock)key.Value.Child).Text = letter.ToString();
+                        }
                     }
                 }
 
@@ -183,27 +194,3 @@ namespace KeyboardTrainer
         }
     }
 }
-
-/*
-    Keys strings to char 
-
-`   oem3
-1   d1
-2   d2
-3   d3
-4   d4
-5   d5
-6   d6
-7   d7
-8   d8
-9   d9
-0   d0
--   oemminus
-=   oemplus
-tab tab
-[   oemopenbrackets
-]   oem6
-
-
-
-*/
