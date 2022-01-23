@@ -1,0 +1,34 @@
+﻿<Window x:Class="PaintFigures.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PaintFigures"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Polygon 
+            Points="20,50 60,50 60,20 100,60 60,100 60,70 20,70"
+            StrokeThickness="3"
+            Stroke="Black">
+            <Polygon.Fill>
+                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5" >
+                    <GradientStop Color="LightCoral" Offset="0" />
+                    <GradientStop Color="BlueViolet" Offset="1" />
+                </LinearGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
+
+        <Polygon 
+            Points="170,20 210,20 230,55 210,90 170,90 150,55"
+            StrokeThickness="3"
+            Stroke="Black">
+            <Polygon.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="Teal" Offset="0" />
+                    <GradientStop Color="Honeydew" Offset="1" />
+                </RadialGradientBrush>
+            </Polygon.Fill>
+        </Polygon>
+    </Grid>
+</Window>
