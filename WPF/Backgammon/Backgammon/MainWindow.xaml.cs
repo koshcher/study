@@ -26,6 +26,7 @@ namespace Backgammon
 
         Random rnd = new Random();
         static public int currentPlayer;
+        int movesCount = 0;
 
         public MainWindow()
         {
@@ -58,16 +59,26 @@ namespace Backgammon
             secondDice.Visibility = Visibility.Visible;
             MoveToNextPlayer();
             ThrowDices();
-        }
+        }   
 
         void ThrowDices()
         {
-            firstDice.Content = rnd.Next(1, 7);
-            secondDice.Content = rnd.Next(1, 7);
+            int first = rnd.Next(1, 7);
+            int second = rnd.Next(1, 7);
+            movesCount = first == second ? 4 : 2;
+            firstDice.Content = first;
+            secondDice.Content = second;
+            if (!players[currentPlayer].CanMove())
+            {
+                MessageBox.Show("You can not make a move, next player move");
+                MoveToNextPlayer();
+            }
         }
 
         void MoveToNextPlayer()
         {
+            players[currentPlayer].isStackChipTaken = false;
+
             if(currentPlayer == 0)
             {
                 currentPlayer = 1;
@@ -119,7 +130,10 @@ namespace Backgammon
             {
                 firstDice.IsEnabled = true;
                 secondDice.IsEnabled = true;
-                ((Button)sender).Visibility = Visibility.Hidden;
+                if(movesCount <= 2)
+                {
+                    ((Button)sender).Visibility = Visibility.Hidden;
+                }
 
                 if (players[currentPlayer].IsEnd())
                 {
@@ -135,8 +149,16 @@ namespace Backgammon
                     return;
                 }
 
+                movesCount--;
+
                 if (dices[0].Visibility == Visibility.Hidden && dices[1].Visibility == Visibility.Hidden)
                 {
+                    MoveToNextPlayer();
+                }
+
+                if (!players[currentPlayer].CanMove())
+                {
+                    MessageBox.Show("You can not make a move, next player move");
                     MoveToNextPlayer();
                 }
             }

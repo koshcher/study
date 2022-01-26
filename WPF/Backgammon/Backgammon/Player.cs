@@ -17,6 +17,7 @@ namespace Backgammon
         Dictionary<int, List<Ellipse>> chips = new Dictionary<int, List<Ellipse>> { }; // int - position
 
         int currentPosition = 0;
+        public bool isStackChipTaken = false;
 
         public Player(SolidColorBrush solidColorBrush)
         {
@@ -25,6 +26,21 @@ namespace Backgammon
 
         public void Restart()
         {
+            foreach(var pair in chips)
+            {
+                foreach(var chip in pair.Value)
+                {
+                    if(MainWindow.boards[0].Children.Contains(chip))
+                    {
+                        MainWindow.boards[0].Children.Remove(chip);
+                    }
+                    else if(MainWindow.boards[1].Children.Contains(chip))
+                    {
+                        MainWindow.boards[1].Children.Remove(chip);
+                    }
+                }
+                pair.Value.Clear();
+            }
             chips.Clear();
 
             for (int i = 0; i < 24; i++)
@@ -49,6 +65,7 @@ namespace Backgammon
         {
             if(currentPosition != 0)
             {
+                isStackChipTaken = currentPosition == 1 ? true : false;
                 int newPosition = currentPosition + steps;
                 List<Ellipse> currentPositionChips = chips[currentPosition]; // for economing time
 
@@ -93,7 +110,8 @@ namespace Backgammon
                         break;
                     }
                 }
-                if(currentPosition == 1 && (MainWindow.dices[0].Visibility == Visibility.Hidden || MainWindow.dices[1].Visibility == Visibility.Hidden))
+
+                if(currentPosition == 1 && isStackChipTaken)
                 {
                     currentPosition = 0;
                 }
@@ -124,6 +142,28 @@ namespace Backgammon
                     MainWindow.dices[i].IsEnabled = false;
                 }
             }
+        }
+
+        public bool CanMove()
+        {
+            foreach(var pair in chips)
+            {
+                if(pair.Key == 1 && isStackChipTaken == true)
+                {
+                    continue;
+                }
+                if(pair.Value.Count > 0)
+                {
+                    for (int i = 0; i < MainWindow.dices.Count; i++)
+                    {
+                        if (MainWindow.players[1 - MainWindow.currentPlayer].IsPositionEmpty(ToOponentPosition(pair.Key + Convert.ToInt32(MainWindow.dices[i].Content))))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         bool IsAllAtHome()
