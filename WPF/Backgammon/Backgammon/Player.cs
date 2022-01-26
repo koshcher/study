@@ -15,7 +15,6 @@ namespace Backgammon
     {
         public SolidColorBrush color;
         Dictionary<int, List<Ellipse>> chips = new Dictionary<int, List<Ellipse>> { }; // int - position
-
         int currentPosition = 0;
         public bool isStackChipTaken = false;
 
@@ -23,7 +22,6 @@ namespace Backgammon
         {
             color = solidColorBrush;
         }
-
         public void Restart()
         {
             foreach(var pair in chips)
@@ -60,7 +58,6 @@ namespace Backgammon
                 chips[1].Add(newChip);
             }
         }
-
         public bool Move(int steps)
         {
             if(currentPosition != 0)
@@ -143,7 +140,6 @@ namespace Backgammon
                 }
             }
         }
-
         public bool CanMove()
         {
             foreach(var pair in chips)
@@ -165,7 +161,6 @@ namespace Backgammon
             }
             return false;
         }
-
         bool IsAllAtHome()
         {
             int count = 0;
@@ -175,7 +170,6 @@ namespace Backgammon
             }
             return count == 0;
         }
-
         public bool IsEnd()
         {
             int count = 0;
@@ -185,7 +179,6 @@ namespace Backgammon
             }
             return count == 0;
         }
-
         void UpdatePosition(Ellipse chip, int position)
         {
             if(color == Brushes.Black)
@@ -270,12 +263,10 @@ namespace Backgammon
                 }
             }
         }
-
         public bool IsPositionEmpty(int position)
         {
             return chips[position].Count == 0;
         }
-
         static int ToOponentPosition(int position)
         {
             if(position < 13)

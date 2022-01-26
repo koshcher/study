@@ -23,9 +23,9 @@ namespace Backgammon
         static public List<Grid> boards = new List<Grid> { };
         static public List<Player> players = new List<Player> { };
         static public  List<Button> dices = new List<Button> { };
+        static public int currentPlayer;
 
         Random rnd = new Random();
-        static public int currentPlayer;
         int movesCount = 0;
 
         public MainWindow()
@@ -42,12 +42,10 @@ namespace Backgammon
             dices.Add(firstDice);
             dices.Add(secondDice);
         }
-
         private void Start(object sender, RoutedEventArgs e)
         {
             Restart();
         }
-
         void Restart()
         {
             for(int i = 0; i < players.Count; i++)
@@ -59,8 +57,7 @@ namespace Backgammon
             secondDice.Visibility = Visibility.Visible;
             MoveToNextPlayer();
             ThrowDices();
-        }   
-
+        }
         void ThrowDices()
         {
             int first = rnd.Next(1, 7);
@@ -74,7 +71,6 @@ namespace Backgammon
                 MoveToNextPlayer();
             }
         }
-
         void MoveToNextPlayer()
         {
             players[currentPlayer].isStackChipTaken = false;
@@ -123,7 +119,6 @@ namespace Backgammon
 
             ThrowDices();
         }
-
         private void Move(object sender, RoutedEventArgs e)
         {
             if (players[currentPlayer].Move(Convert.ToInt32(((Button)sender).Content)))
