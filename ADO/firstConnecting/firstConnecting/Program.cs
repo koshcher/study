@@ -19,7 +19,7 @@ namespace firstConnecting
         {
             Program pr = new Program();
             pr.ReadData();
-            pr.InsertQuery();
+            //pr.InsertQuery();
 
             Console.ReadKey();
         }
@@ -33,8 +33,8 @@ namespace firstConnecting
                 //подготовить запрос insert
                 //в переменной типа string
                 string insertString = @"insert into
-                                        Authors (FirstName, LastName)
-                                        values ('Roger', 'Zelazny')";
+                                        Books (AuthorId, Title, PRICE, PAGES)
+                                        values (7, 'Helheim', 10, 2000)";
                 //создать объект command,
                 //инициализировав оба свойства
                 SqlCommand cmd = new SqlCommand(insertString, conn);
@@ -54,7 +54,7 @@ namespace firstConnecting
 
         public void ReadData()
         {
-            string command = "select * from Authors";
+            string command = "select * from Books";
             SqlCommand cmd = new SqlCommand(command, conn);
             SqlDataReader dr = null;
             try
@@ -63,7 +63,7 @@ namespace firstConnecting
                 dr = cmd.ExecuteReader();
                 while(dr.Read())
                 {
-                    Console.WriteLine(dr[1] + " " + dr[2]);
+                    Console.WriteLine(dr[1] + " " + dr[2] + " " + dr[3] + " " + dr[4]);
                 }
 
             }
