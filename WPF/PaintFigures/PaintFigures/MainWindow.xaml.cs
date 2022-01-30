@@ -23,6 +23,7 @@ namespace PaintFigures
         public MainWindow()
         {
             InitializeComponent();
+          
         }
     }
 }
