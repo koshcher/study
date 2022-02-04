@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System;
 
 namespace StationeryFirmApp
 {
@@ -24,30 +13,25 @@ namespace StationeryFirmApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        SqlConnection conn;
-        SqlDataAdapter dataAdapter;
-        //DataSet dataSet;
-        SqlCommandBuilder cmdBuilder;
-
+        private SqlConnection conn;
+        private SqlDataAdapter dataAdapter;
+        private DataSet dataSet;
+        private SqlCommandBuilder cmdBuilder;
 
         public MainWindow()
         {
             InitializeComponent();
-            //showComboBox.SelectedIndex = 0;
+            showComboBox.SelectedIndex = 0;
+            showSpecialComboBox.SelectedIndex = 0;
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureStationeryFirmConnString"].ConnectionString);
+
         }
 
-        void UpdateData()
-        {
-           // dataAdapter.Update(dataSet);
-        }
-
-        
-        void ExecuteRequest(string request)
+        private void ExecuteRequest(string request)
         {
             try
             {
-                DataSet dataSet = new DataSet();
+                dataSet = new DataSet();
                 dataAdapter = new SqlDataAdapter(request, conn);
                 dataGrid.ItemsSource = null;
                 cmdBuilder = new SqlCommandBuilder(dataAdapter);
@@ -61,9 +45,6 @@ namespace StationeryFirmApp
             }
         }
 
-
-        
-
         private void Show(object sender, RoutedEventArgs e)
         {
             int num;
@@ -72,41 +53,52 @@ namespace StationeryFirmApp
                 case 0:
                     ExecuteRequest("select * from Stationery");
                     break;
+
                 case 1:
                     ExecuteRequest("select * from StationeryTypes");
                     break;
+
                 case 2:
                     ExecuteRequest("select * from Managers");
                     break;
+
                 case 3:
+                    ExecuteRequest("select * from BuyerFirms");
+                    break;
+
+                case 4:
                     ExecuteRequest("SELECT TOP 1 Name, Count FROM Stationery ORDER BY Count DESC");
                     break;
-                case 4:
+
+                case 5:
                     ExecuteRequest("SELECT TOP 1 Name, Count FROM Stationery ORDER BY Count ASC");
                     break;
-                case 5:
-                    ExecuteRequest("SELECT TOP 1 Name, CostPrice FROM Stationery ORDER BY CostPrice ASC");
-                    break;
+
                 case 6:
-                    ExecuteRequest("SELECT TOP 1 Name, CostPrice FROM Stationery ORDER BY CostPrice DESC");
+                    ExecuteRequest("SELECT TOP 1 Name, CostPrice FROM Stationery ORDER BY CostPrice ASC");
                     break;
 
                 case 7:
-                    if(int.TryParse(showTextBox.Text, out num))
+                    ExecuteRequest("SELECT TOP 1 Name, CostPrice FROM Stationery ORDER BY CostPrice DESC");
+                    break;
+
+                case 8:
+                    if (int.TryParse(showTextBox.Text, out num))
                     {
                         ExecuteRequest("SELECT * FROM Stationery WHERE Type=" + num);
-                    } 
+                    }
                     else
                     {
                         MessageBox.Show("Введены некорретные данные");
                     }
                     break;
-                case 8:
+
+                case 9:
                     if (int.TryParse(showTextBox.Text, out num))
                     {
                         ExecuteRequest(@"SELECT Stationery.*
                             FROM Sales
-                            JOIN Stationery 
+                            JOIN Stationery
                             ON Stationery.Id=Sales.Stationery
                             WHERE Sales.Manager=" + num.ToString());
                     }
@@ -115,12 +107,13 @@ namespace StationeryFirmApp
                         MessageBox.Show("Введены некорретные данные");
                     }
                     break;
-                case 9:
+
+                case 10:
                     if (int.TryParse(showTextBox.Text, out num))
                     {
                         ExecuteRequest(@"SELECT Stationery.Name
                             FROM Sales
-                            JOIN Stationery 
+                            JOIN Stationery
                             ON Stationery.Id=Sales.Stationery
                             WHERE Sales.BuyerFirm=" + num.ToString());
                     }
@@ -130,13 +123,14 @@ namespace StationeryFirmApp
                     }
                     break;
 
-                case 10:
+                case 11:
                     ExecuteRequest("SELECT TOP 1 * FROM Sales ORDER BY Date DESC");
                     break;
-                case 11:
+
+                case 12:
                     ExecuteRequest(@"SELECT StationeryTypes.Name, AVG(Stationery.Count) as 'Среднее кол-во'
                             FROM Stationery
-                            JOIN StationeryTypes 
+                            JOIN StationeryTypes
                             ON StationeryTypes.Id=Stationery.Type
                             GROUP BY StationeryTypes.Name");
                     break;
@@ -145,16 +139,139 @@ namespace StationeryFirmApp
 
         private void showComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(showComboBox.SelectedIndex > 6 && showComboBox.SelectedIndex < 10)
+            if (showComboBox.SelectedIndex > 7 && showComboBox.SelectedIndex < 11)
             {
                 showTextBox.IsEnabled = true;
                 MessageBox.Show("Введите индекс предмета поиска в TextBox возле меню");
-            } 
+            }
             else
             {
                 showTextBox.IsEnabled = false;
             }
         }
-        
+
+        private void ApplyChanges(object sender, RoutedEventArgs e)
+        {
+            if(dataSet != null)
+            {
+                dataAdapter.Update(dataSet, dataSet.Tables[0].TableName);
+            }
+        }
+
+        private string BetweenDates()
+        {
+            string firstDate = firstDatePicker.DisplayDate.Month.ToString() + "/" + firstDatePicker.DisplayDate.Day.ToString() + "/" + firstDatePicker.DisplayDate.Year.ToString();
+            string secondDate = secondDatePicker.DisplayDate.Month.ToString() + "/" + secondDatePicker.DisplayDate.Day.ToString() + "/" + secondDatePicker.DisplayDate.Year.ToString();
+            return "'" + firstDate + "' AND '" + secondDate + "'";
+        }
+
+        private void ShowSpecial(object sender, RoutedEventArgs e)
+        {
+            switch (showSpecialComboBox.SelectedIndex)
+            {
+                case 0:
+                    ExecuteRequest(@"SELECT TOP 1 Managers.Name, SUM(Sales.Count)
+                            FROM Sales
+                            JOIN Managers
+                            ON Sales.Manager=Managers.Id
+                            GROUP BY Managers.Name
+                            ORDER BY SUM(Sales.Count) DESC");
+                    break;
+
+                case 1:
+                    ExecuteRequest(@"SELECT TOP 1 Managers.Name, SUM(Sales.Count * (Stationery.CostPrice - Stationery.UnitPrice))
+                            FROM Sales, Managers, Stationery
+                            WHERE Sales.Manager=Managers.Id AND Sales.Stationery=Stationery.Id
+                            GROUP BY Managers.Name
+                            ORDER BY SUM(Sales.Count * (Stationery.CostPrice - Stationery.UnitPrice)) DESC");
+                    break;
+
+                case 2:
+                    ExecuteRequest(@"SELECT TOP 1 Managers.Name, SUM(Sales.Count * (Stationery.CostPrice - Stationery.UnitPrice))
+                            FROM Sales, Managers, Stationery
+                            WHERE Sales.Manager=Managers.Id AND Sales.Stationery=Stationery.Id AND Sales.Date BETWEEN "
+                            + BetweenDates() +
+                            @" GROUP BY Managers.Name
+                            ORDER BY SUM(Sales.Count * (Stationery.CostPrice - Stationery.UnitPrice)) DESC");
+                    break;
+
+                case 3:
+                    ExecuteRequest(@"SELECT TOP 1 BuyerFirms.Name, SUM(Sales.Count * Stationery.CostPrice)
+                            FROM Sales, BuyerFirms, Stationery
+                            WHERE Sales.BuyerFirm=BuyerFirms.Id AND Sales.Stationery=Stationery.Id
+                            GROUP BY BuyerFirms.Name
+                            ORDER BY SUM(Sales.Count * Stationery.CostPrice) DESC");
+                    break;
+
+                case 4:
+                    ExecuteRequest(@"SELECT TOP 1 StationeryTypes.Name, SUM(Sales.Count)
+                            FROM Sales, StationeryTypes, Stationery
+                            WHERE Stationery.Type=StationeryTypes.Id AND Sales.Stationery=Stationery.Id
+                            GROUP BY StationeryTypes.Name
+                            ORDER BY SUM(Sales.Count) DESC");
+                    break;
+
+                case 5:
+                    ExecuteRequest(@"SELECT TOP 1 StationeryTypes.Name, SUM(Sales.Count * (Stationery.CostPrice - Stationery.UnitPrice))
+                            FROM Sales, StationeryTypes, Stationery
+                            WHERE Stationery.Type=StationeryTypes.Id AND Sales.Stationery=Stationery.Id
+                            GROUP BY StationeryTypes.Name
+                            ORDER BY SUM(Sales.Count * (Stationery.CostPrice - Stationery.UnitPrice)) DESC");
+                    break;
+
+                case 6:
+                    ExecuteRequest(@"SELECT TOP 1 Stationery.Name, SUM(Sales.Count)
+                            FROM Sales, Stationery
+                            WHERE Sales.Stationery=Stationery.Id
+                            GROUP BY Stationery.Name
+                            ORDER BY SUM(Sales.Count) DESC");
+                    break;
+
+                case 7:
+                    int num;
+                    if(int.TryParse(showSpecialTextBox.Text, out num))
+                    {
+                        DateTime date = DateTime.Now;
+                        ExecuteRequest(@"SELECT DISTINCT Stationery.Name
+                            FROM Sales, Stationery
+                            WHERE Sales.Stationery=Stationery.Id AND DATEDIFF(day, Sales.Date, '"
+                            + date.Month.ToString() + "/" + date.Day.ToString() + "/" + date.Year.ToString() +
+                            "') >= " + num.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Введены некорретные данные");
+                    }
+                    break;
+            }
+        }
+
+        private void showSpecialComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(showSpecialComboBox.SelectedIndex == 2)
+            {
+                firstDatePicker.IsEnabled = true;
+                secondDatePicker.IsEnabled = true;
+                firstDatePicker.Background = Brushes.White;
+                secondDatePicker.Background = Brushes.White;
+            }
+            else
+            {
+                firstDatePicker.IsEnabled = false;
+                secondDatePicker.IsEnabled = false;
+                firstDatePicker.Background = Brushes.LightGray;
+                secondDatePicker.Background = Brushes.LightGray;
+            }
+            if(showSpecialComboBox.SelectedIndex == 7)
+            {
+                showSpecialTextBox.IsEnabled = true;
+                showSpecialTextBox.Background = Brushes.White;
+            } 
+            else
+            {
+                showSpecialTextBox.IsEnabled = false;
+                showSpecialTextBox.Background = Brushes.LightGray;
+            }
+        }
     }
 }
