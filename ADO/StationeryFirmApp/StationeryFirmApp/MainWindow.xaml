@@ -16,11 +16,13 @@
 
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -49,7 +51,7 @@
                 <ComboBoxItem>информацию о самой недавней продаже</ComboBoxItem>
                 <ComboBoxItem>среднее количество товаров по каждому типу канцтоваров</ComboBoxItem>
             </ComboBox>
-            <Button Click="Show" Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" Margin="0, 0, 0, 20">Показать</Button>
+            <Button x:Name="showBtn" Click="Show" Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" Margin="0, 0, 0, 20">Показать</Button>
 
             <ComboBox x:Name="showSpecialComboBox" SelectionChanged="showSpecialComboBox_SelectionChanged" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                 <ComboBoxItem>информацию о менеджере с наибольшим количеством продаж по количеству единиц</ComboBoxItem>
@@ -73,6 +75,9 @@
             <Button Click="ShowSpecial" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0, 0, 0, 20">Показать особые</Button>
             
             <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Click="ApplyChanges">Применить изменения</Button>
+            <RadioButton x:Name="SyncRadioButton" Grid.Row="7" Grid.Column="0" >Синхронная работа</RadioButton>
+            <RadioButton x:Name="AsyncRadioButton" Grid.Row="7" Grid.Column="1" >Асинхронная работа</RadioButton>
+            <TextBlock x:Name="timeTextBlock" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">Кол-во секунд для выполнения запроса: </TextBlock>
         </Grid>
     </Grid>
 </Window>

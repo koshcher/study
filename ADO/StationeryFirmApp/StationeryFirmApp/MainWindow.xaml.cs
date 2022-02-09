@@ -5,6 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace StationeryFirmApp
 {
@@ -15,7 +18,7 @@ namespace StationeryFirmApp
     {
         private SqlConnection conn;
         private SqlDataAdapter dataAdapter;
-        private DataSet dataSet;
+        private DataTable dataTable;
         private SqlCommandBuilder cmdBuilder;
 
         public MainWindow()
@@ -24,22 +27,117 @@ namespace StationeryFirmApp
             showComboBox.SelectedIndex = 0;
             showSpecialComboBox.SelectedIndex = 0;
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureStationeryFirmConnString"].ConnectionString);
-
+            AsyncRadioButton.IsChecked = true;
         }
 
         private void ExecuteRequest(string request)
         {
+            if(AsyncRadioButton.IsChecked == true)
+            {
+                AsyncExecuteRequest(request);
+            }
+            else
+            {
+                SyncExecuteRequest(request);
+            }
+        }
+
+        /* Without Task
+        private async void AsyncExecuteRequest(string request)
+        {
             try
             {
-                dataSet = new DataSet();
+                DateTime start = DateTime.Now;
+                showBtn.IsEnabled = false;
+
+                await conn.OpenAsync();
+
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText =  request;
+
+                dataTable = new DataTable();
+
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    int line = 0;
+                    do
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            if (line == 0)
+                            {
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    dataTable.Columns.Add(reader.GetName(i));
+                                }
+                                line++;
+                            }
+                            DataRow row = dataTable.NewRow();
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                row[i] = await reader.GetFieldValueAsync<Object>(i);
+                            }
+                            dataTable.Rows.Add(row);
+                        }
+                    } while (reader.NextResult());
+                }
+
+                dataGrid.ItemsSource = null;
+                dataGrid.ItemsSource = dataTable.DefaultView;
+                conn.Close();
+                showBtn.IsEnabled = true;
+                timeTextBlock.Text = "Кол-во секунд для выполнения запроса: " + (DateTime.Now - start).Seconds.ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Преблема при выполнении запроса");
+                showBtn.IsEnabled = true;
+            }
+        }
+        */
+
+        private async void AsyncExecuteRequest(string request)
+        {
+            try
+            {
+                DateTime start = DateTime.Now;
+                showBtn.IsEnabled = false;
+                dataGrid.ItemsSource = null;
+                dataTable = new DataTable();
+
+                await Task.Run(() =>
+                {
+                    dataAdapter = new SqlDataAdapter(request, conn);
+                    cmdBuilder = new SqlCommandBuilder(dataAdapter);
+                    dataAdapter.Fill(dataTable);
+                });
+
+                dataGrid.ItemsSource = dataTable.DefaultView;
+                showBtn.IsEnabled = true;
+                timeTextBlock.Text = "Кол-во секунд для выполнения запроса: " + (DateTime.Now - start).Seconds.ToString();
+            }
+            catch (Exception ex)
+            {
+                showBtn.IsEnabled = true;
+                MessageBox.Show("Преблема при выполнении запроса");
+            }
+        }
+
+        private void SyncExecuteRequest(string request)
+        {
+            try
+            {
+                DateTime start = DateTime.Now;
+                dataTable = new DataTable();
                 dataAdapter = new SqlDataAdapter(request, conn);
                 dataGrid.ItemsSource = null;
                 cmdBuilder = new SqlCommandBuilder(dataAdapter);
-                dataAdapter.Fill(dataSet);
+                dataAdapter.Fill(dataTable);
 
-                dataGrid.ItemsSource = dataSet.Tables[0].DefaultView;
+                dataGrid.ItemsSource = dataTable.DefaultView;
+                timeTextBlock.Text = "Кол-во секунд для выполнения запроса: " + (DateTime.Now - start).Seconds.ToString();
             }
-            catch
+            catch (Exception ex)
             {
                 MessageBox.Show("Преблема при выполнении запроса");
             }
@@ -152,9 +250,46 @@ namespace StationeryFirmApp
 
         private void ApplyChanges(object sender, RoutedEventArgs e)
         {
-            if(dataSet != null)
+            if (AsyncRadioButton.IsChecked == true)
             {
-                dataAdapter.Update(dataSet, dataSet.Tables[0].TableName);
+                AsyncApplyChanges();
+            }
+            else
+            {
+                SyncApplyChanges();
+            }
+        }
+
+        private async void AsyncApplyChanges()
+        {
+            if (dataTable != null)
+            {
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        dataAdapter.Update(dataTable);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Данный запрос не поддерживает изменения");
+                    }
+                });
+            }
+        }
+
+        private void SyncApplyChanges()
+        {
+            try
+            {
+                if (dataTable != null)
+                {
+                    dataAdapter.Update(dataTable);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Данный запрос не поддерживает изменения");
             }
         }
 
