@@ -1,0 +1,56 @@
+﻿<Window x:Class="CountriesApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CountriesApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="ShowDataGrid" Grid.Column="0"/>
+
+        <StackPanel Grid.Column="1">
+            <TextBlock>Задание 2:</TextBlock>
+            <ComboBox x:Name="Task2ComboBox">
+                <ComboBoxItem>всю информацию о странах</ComboBoxItem>
+                <ComboBoxItem>название стран</ComboBoxItem>
+                <ComboBoxItem>название столиц</ComboBoxItem>
+                <ComboBoxItem>название крупных городов конкретной страны</ComboBoxItem>
+                <ComboBoxItem>название столиц с количеством жителей больше пяти миллионов</ComboBoxItem>
+                <ComboBoxItem>название всех европейских стран</ComboBoxItem>
+                <ComboBoxItem>название стран с площадью большей конкретного числа</ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="Task2Btn" Click="Task2Btn_Click" Margin="0, 0, 0, 25">Отобразить</Button>
+
+            <TextBlock>Задание 3:</TextBlock>
+            <ComboBox x:Name="Task3ComboBox">
+                <ComboBoxItem>все столицы, у которых в названии есть буквы a, p</ComboBoxItem>
+                <ComboBoxItem>все столицы, у которых название начинается с буквы k</ComboBoxItem>
+                <ComboBoxItem>название стран, у которых площадь находится в указанном диапазоне</ComboBoxItem>
+                <ComboBoxItem>название стран, у которых количество жителей больше указанного числа</ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="Task3Btn" Click="Task3Btn_Click" Margin="0, 0, 0, 25">Отобразить</Button>
+
+            <TextBlock>Задание 4:</TextBlock>
+            <ComboBox x:Name="Task4ComboBox">
+                <ComboBoxItem>топ-5 стран по площади</ComboBoxItem>
+                <ComboBoxItem>топ-5 столиц по количеству жителей</ComboBoxItem>
+                <ComboBoxItem>страну с самой большой площадью</ComboBoxItem>
+                <ComboBoxItem>столицу с самым большим количеством жителей</ComboBoxItem>
+                <ComboBoxItem>страну с самой маленькой площадью в Европе</ComboBoxItem>
+                <ComboBoxItem>среднюю площадь стран в Европе</ComboBoxItem>
+                <ComboBoxItem>топ-3 городов по количеству жителей для конкретной страны</ComboBoxItem>
+                <ComboBoxItem>общее количество стран</ComboBoxItem>
+                <ComboBoxItem>часть света с максимальным количеством стран</ComboBoxItem>
+                <ComboBoxItem>количество стран в каждой части света</ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="Task4Btn" Click="Task4Btn_Click">Показать</Button>
+        </StackPanel>   
+        
+    </Grid>
+</Window>
