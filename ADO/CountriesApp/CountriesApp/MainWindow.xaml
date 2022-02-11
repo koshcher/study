@@ -14,9 +14,29 @@
 
         <DataGrid x:Name="ShowDataGrid" Grid.Column="0"/>
 
-        <StackPanel Grid.Column="1">
-            <TextBlock>Задание 2:</TextBlock>
-            <ComboBox x:Name="Task2ComboBox">
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0">Задание 2:</TextBlock>
+            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="Task2ComboBox" SelectionChanged="Task2ComboBox_SelectionChanged">
                 <ComboBoxItem>всю информацию о странах</ComboBoxItem>
                 <ComboBoxItem>название стран</ComboBoxItem>
                 <ComboBoxItem>название столиц</ComboBoxItem>
@@ -25,19 +45,25 @@
                 <ComboBoxItem>название всех европейских стран</ComboBoxItem>
                 <ComboBoxItem>название стран с площадью большей конкретного числа</ComboBoxItem>
             </ComboBox>
-            <Button x:Name="Task2Btn" Click="Task2Btn_Click" Margin="0, 0, 0, 25">Отобразить</Button>
+            <TextBlock Grid.Row="2" Grid.Column="0">Введите число:</TextBlock>
+            <TextBox Margin="2, 2, 2, 2" Grid.Row="2" Grid.Column="1" x:Name="Task2TextBox" IsEnabled="False" Background="LightGray"></TextBox>
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">выберите страну:</TextBlock>
+            <ComboBox Name="Task2CountryComboBox" Margin="2, 2, 2, 2" Grid.Row="3" Grid.Column="1" IsEnabled="False" Background="LightGray" ></ComboBox>
+            <Button Grid.ColumnSpan="2" Grid.Row="4" x:Name="Task2Btn" Click="Task2Btn_Click" Margin="0, 0, 0, 20">Отобразить</Button>
 
-            <TextBlock>Задание 3:</TextBlock>
-            <ComboBox x:Name="Task3ComboBox">
+            <TextBlock Grid.Row="5">Задание 3:</TextBlock>
+            <ComboBox Grid.Row="6" Grid.ColumnSpan="2" x:Name="Task3ComboBox" SelectionChanged="Task3ComboBox_SelectionChanged">
                 <ComboBoxItem>все столицы, у которых в названии есть буквы a, p</ComboBoxItem>
                 <ComboBoxItem>все столицы, у которых название начинается с буквы k</ComboBoxItem>
                 <ComboBoxItem>название стран, у которых площадь находится в указанном диапазоне</ComboBoxItem>
                 <ComboBoxItem>название стран, у которых количество жителей больше указанного числа</ComboBoxItem>
             </ComboBox>
-            <Button x:Name="Task3Btn" Click="Task3Btn_Click" Margin="0, 0, 0, 25">Отобразить</Button>
+            <TextBox x:Name="Task3TextBox1" Margin="2, 2, 2, 2" IsEnabled="False" Background="LightGray" Grid.Row="7" Grid.Column="0"></TextBox>
+            <TextBox x:Name="Task3TextBox2" Margin="2, 2, 2, 2" IsEnabled="False" Background="LightGray" Grid.Row="7" Grid.Column="1"></TextBox>
+            <Button Grid.Row="8" Grid.ColumnSpan="2" x:Name="Task3Btn" Click="Task3Btn_Click" Margin="0, 0, 0, 20">Отобразить</Button>
 
-            <TextBlock>Задание 4:</TextBlock>
-            <ComboBox x:Name="Task4ComboBox">
+            <TextBlock Grid.Row="9">Задание 4:</TextBlock>
+            <ComboBox Grid.Row="10" Grid.ColumnSpan="2" x:Name="Task4ComboBox" SelectionChanged="Task4ComboBox_SelectionChanged">
                 <ComboBoxItem>топ-5 стран по площади</ComboBoxItem>
                 <ComboBoxItem>топ-5 столиц по количеству жителей</ComboBoxItem>
                 <ComboBoxItem>страну с самой большой площадью</ComboBoxItem>
@@ -49,8 +75,9 @@
                 <ComboBoxItem>часть света с максимальным количеством стран</ComboBoxItem>
                 <ComboBoxItem>количество стран в каждой части света</ComboBoxItem>
             </ComboBox>
-            <Button x:Name="Task4Btn" Click="Task4Btn_Click">Показать</Button>
-        </StackPanel>   
-        
+            <TextBlock Grid.Row="11" Grid.Column="0" VerticalAlignment="Center">выберите страну:</TextBlock>
+            <ComboBox Name="Task4CountryComboBox" Margin="2, 2, 2, 2" Grid.Row="11" Grid.Column="1" IsEnabled="False" Background="LightGray" ></ComboBox>
+            <Button Grid.Row="12" Grid.ColumnSpan="2" x:Name="Task4Btn" Click="Task4Btn_Click">Показать</Button>
+        </Grid>
     </Grid>
 </Window>
