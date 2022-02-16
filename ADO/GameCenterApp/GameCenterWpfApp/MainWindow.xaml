@@ -1,0 +1,63 @@
+﻿<Window x:Class="GameCenterWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameCenterWpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="858"
+        FontSize="14">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="showDataGrid"></DataGrid>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0">Название:</TextBlock>
+            <TextBox Grid.Row="0" x:Name="titleTextBox" Grid.Column="1"></TextBox>
+
+            <TextBlock Grid.Row="1">Студия:</TextBlock>
+            <TextBox x:Name="studioTextBox" Grid.Row="1" Grid.Column="1"></TextBox>
+
+            <TextBlock Grid.Row="2">Жанр:</TextBlock>
+            <TextBox x:Name="genreTextBox" Grid.Row="2" Grid.Column="1"></TextBox>
+
+            <TextBlock Grid.Row="3">Дата релиза:</TextBlock>
+            <DatePicker x:Name="releaseDateTextBox" Grid.Row="3" Grid.Column="1"></DatePicker>
+
+            <TextBlock Grid.Row="4">Мультиплеерная:</TextBlock>
+            <CheckBox x:Name="isMultiplayerCheckBox" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"></CheckBox>
+
+            <TextBlock Grid.Row="5">Кол-во проданых копий:</TextBlock>
+            <TextBox x:Name="soldCopiesCountTextBox" Grid.Row="5" Grid.Column="1"></TextBox>
+
+            <Button Grid.Row="6" Grid.ColumnSpan="2" Click="AddGame">Добавить</Button>
+            <Button Grid.Row="7" Grid.ColumnSpan="2" Click="ShowGames">Показать игры</Button>
+        </Grid>
+        
+    </Grid>
+</Window>
