@@ -8,8 +8,8 @@
         Title="MainWindow" 
         WindowStartupLocation="CenterScreen"
         ShowTitle="True"
-        Height="600" 
-        Width="800">
+        MinHeight="600" 
+        MinWidth="800">
     <hc:Window.Resources>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -74,27 +74,55 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <ComboBox x:Name="typeComboBox" Grid.Column="1"/>
-                        <ComboBox Name="categoryComboBox" Grid.Column="2"/>
-                        <ComboBox Name="sortComboBox" Grid.Column="0"/>
+                        <ComboBox Name="sortComboBox" Margin="10, 0, 0, 0" Grid.Column="0"/>
+                        <ComboBox x:Name="typeComboBox" Margin="10, 0, 10, 0" SelectionChanged="typeComboBox_SelectionChanged" Grid.Column="1">
+                            <ComboBoxItem>Apps</ComboBoxItem>
+                            <ComboBoxItem>Games</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Name="categoryComboBox" Margin="0, 0, 10, 0" Grid.Column="2" ItemsSource="{Binding Category}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </Grid>
 
                     <ScrollViewer Grid.Row="1">
-                        <hc:CoverView x:Name="listViewApps" ItemsSource="{Binding App}">
+                        <hc:CoverView Margin="10, 0, 12, 0" x:Name="listViewApps" ItemWidth="150" ItemHeight="100" ItemContentHeight="200" >
                             <hc:CoverView.ItemHeaderTemplate>
                                 <DataTemplate>
-                                    <Border Background="#fdfdfd" CornerRadius="10">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding Name}"/>
-                                            <TextBlock Text="{Binding Rating}"/>
-                                            <TextBlock Text="{Binding Price}"/>
-                                        </StackPanel>
+                                    <Border Background="#d4e5fc" CornerRadius="10">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center"/>
+                                            <hc:Rate Value="{Binding Rating}" Grid.Row="1" Margin="0, 5, 0, 5" HorizontalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Text="{Binding Category}" Margin="10, 0, 0, 0" Grid.Row="2" FontSize="12"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                                                <TextBlock Text="{Binding Price}" Margin="10, 0, 5, 0" FontSize="14"/>
+                                                <TextBlock Text="$" FontSize="14"/>
+                                            </StackPanel>
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </hc:CoverView.ItemHeaderTemplate>
                             <hc:CoverView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Description}"/>
+                                    <Border CornerRadius="10" Margin="10">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Description}" Grid.Row="0" TextWrapping="Wrap"/>
+                                            <Button Grid.Row="1" Click="AddToLibrary" Tag="{Binding Id}">Add to library</Button>
+                                        </Grid>
+                                    </Border>
                                 </DataTemplate>
                             </hc:CoverView.ItemTemplate>
                         </hc:CoverView>
@@ -102,7 +130,45 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Library">
-
+                <ScrollViewer Grid.Row="1">
+                    <hc:CoverView Margin="10" x:Name="libraryApps" ItemWidth="150" ItemHeight="100" ItemContentHeight="200" >
+                        <hc:CoverView.ItemHeaderTemplate>
+                            <DataTemplate>
+                                <Border Background="#fcdfd4" CornerRadius="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center"/>
+                                        <hc:Rate Value="{Binding Rating}" Grid.Row="1" Margin="0, 5, 0, 5" HorizontalAlignment="Center" IsReadOnly="True"/>
+                                        <TextBlock Text="{Binding Category}" Margin="10, 0, 0, 0" Grid.Row="2" FontSize="12"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="3">
+                                            <TextBlock Text="{Binding Price}" Margin="10, 0, 5, 0" FontSize="14"/>
+                                            <TextBlock Text="$" FontSize="14"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </hc:CoverView.ItemHeaderTemplate>
+                        <hc:CoverView.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="10" Margin="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Description}" Grid.Row="0" TextWrapping="Wrap"/>
+                                        <Button Grid.Row="1" Click="RemoveFromLibrary" Tag="{Binding Id}">Remove from library</Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </hc:CoverView.ItemTemplate>
+                    </hc:CoverView>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="Publish">
                 <Grid>

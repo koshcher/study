@@ -1,6 +1,7 @@
 ﻿using HandyControl.Controls;
-using HandyControl.Themes;
+using HandyControl.Properties;
 using HandyControl.Tools;
+using HandyControl.Themes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -18,12 +19,14 @@ namespace StrongStoreHandyControlUI
         StoreDbContext db;
         int currentUserId = 0;
         int currentPublisherId = 0;
+        bool isGame = false;
 
         public MainWindow()
         {
             InitializeComponent();
             db = new StoreDbContext();
             registerUserBirthDate.DisplayDate = DateTime.Now;
+            typeComboBox.SelectedIndex = 0;
         }
 
         private void RegisterUser(object sender, RoutedEventArgs e)
@@ -144,11 +147,8 @@ namespace StrongStoreHandyControlUI
         {
             switch(nav.SelectedIndex)
             {
-                case 0:
-                    listViewApps.ItemsSource = from app in db.Apps
-                                               select app;
-                    break;
                 case 1:
+                    UpdateLibrary();
                     break;
                 case 2:
                     publishLanguageTransfer.ItemsSource = from lang in db.Languages
@@ -217,6 +217,91 @@ namespace StrongStoreHandyControlUI
                     HandyControl.Controls.MessageBox.Show("Price is incorrect");
                 }
             }
+        }
+
+        private void typeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch(typeComboBox.SelectedIndex)
+            {
+                case 0:
+                    categoryComboBox.ItemsSource = (from category in db.Categories
+                                                   where category.IsForGame == false
+                                                   select category).ToList();
+                    isGame = false;
+                    break;
+                case 1:
+                    categoryComboBox.ItemsSource = (from category in db.Categories
+                                                   where category.IsForGame == true
+                                                   select category).ToList();
+                    isGame = true;
+                    break;
+            }
+            categoryComboBox.SelectedIndex = 0;
+            UpdateStore();
+        }
+
+        private void UpdateStore()
+        {
+            listViewApps.ItemsSource = from app in db.Apps
+                                       where app.IsGame == isGame
+                                       select new
+                                       {
+                                           Id = app.Id,
+                                           Name = app.Name,
+                                           Description = app.Description,
+                                           Rating = app.Rating,
+                                           Price = app.Price,
+                                           Category = app.AppCategories.First().Category.Name
+                                       };
+        }
+
+        private async void AddToLibrary(object sender, RoutedEventArgs e)
+        {
+            if(currentUserId == 0)
+            {
+                HandyControl.Controls.MessageBox.Show("You are not login as user");
+                nav.SelectedIndex = 3;
+            } 
+            else
+            {
+                db.AppUsers.Add(new AppUser {
+                    UserId = currentUserId, 
+                    AppId = (int)((Button)sender).Tag,
+                });
+                await db.SaveChangesAsync();
+            }
+        }
+
+        private async void RemoveFromLibrary(object sender, RoutedEventArgs e)
+        {
+            if (currentUserId == 0)
+            {
+                HandyControl.Controls.MessageBox.Show("You are not login as user");
+                nav.SelectedIndex = 3;
+            }
+            else
+            {
+                db.AppUsers.RemoveRange(from appUser in db.AppUsers
+                                        where appUser.UserId == currentUserId && appUser.AppId == (int)((Button)sender).Tag
+                                        select appUser);
+                await db.SaveChangesAsync();
+                UpdateLibrary();
+            }
+        }
+
+        void UpdateLibrary()
+        {
+            libraryApps.ItemsSource = from appUser in db.AppUsers
+                                      where appUser.UserId == currentUserId
+                                      select new
+                                      {
+                                          Id = appUser.App.Id,
+                                          Name = appUser.App.Name,
+                                          Description = appUser.App.Description,
+                                          Rating = appUser.App.Rating,
+                                          Price = appUser.App.Price,
+                                          Category = appUser.App.AppCategories.First().Category.Name
+                                      };
         }
     }
 }
