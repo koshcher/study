@@ -20,6 +20,7 @@ namespace StrongStoreHandyControlUI
         int currentUserId = 0;
         int currentPublisherId = 0;
         bool isGame = false;
+        bool isStart = true; // not double load store when start
 
         public MainWindow()
         {
@@ -27,6 +28,8 @@ namespace StrongStoreHandyControlUI
             db = new StoreDbContext();
             registerUserBirthDate.DisplayDate = DateTime.Now;
             typeComboBox.SelectedIndex = 0;
+            isStart = false;
+            sortComboBox.SelectedIndex = 0;
         }
 
         private void RegisterUser(object sender, RoutedEventArgs e)
@@ -155,8 +158,6 @@ namespace StrongStoreHandyControlUI
                                                    select lang;
                     publishAppRadioBtn.IsChecked = true;
                     break;
-                case 3:
-                    break;
             }
         }
 
@@ -221,38 +222,53 @@ namespace StrongStoreHandyControlUI
 
         private void typeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch(typeComboBox.SelectedIndex)
+            switch (typeComboBox.SelectedIndex)
             {
                 case 0:
-                    categoryComboBox.ItemsSource = (from category in db.Categories
-                                                   where category.IsForGame == false
-                                                   select category).ToList();
                     isGame = false;
                     break;
                 case 1:
-                    categoryComboBox.ItemsSource = (from category in db.Categories
-                                                   where category.IsForGame == true
-                                                   select category).ToList();
                     isGame = true;
                     break;
             }
+            categoryComboBox.ItemsSource = (from category in db.Categories
+                                            where category.IsForGame == isGame
+                                            select category).ToList();
             categoryComboBox.SelectedIndex = 0;
-            UpdateStore();
         }
 
         private void UpdateStore()
         {
-            listViewApps.ItemsSource = from app in db.Apps
-                                       where app.IsGame == isGame
-                                       select new
-                                       {
-                                           Id = app.Id,
-                                           Name = app.Name,
-                                           Description = app.Description,
-                                           Rating = app.Rating,
-                                           Price = app.Price,
-                                           Category = app.AppCategories.First().Category.Name
-                                       };
+            if(!isStart)
+            {
+                var apps = from appCategory in db.AppCategories
+                           join app in db.Apps on appCategory.AppId equals app.Id
+                           where app.IsGame == isGame && appCategory.Category.IsForGame == isGame && appCategory.CategoryId == ((Category)categoryComboBox.SelectedItem).Id
+                           select new
+                           {
+                               Id = app.Id,
+                               Name = app.Name,
+                               Description = app.Description,
+                               Rating = app.Rating,
+                               Price = app.Price,
+                               Category = appCategory.Category.Name
+                           };
+                switch (sortComboBox.SelectedIndex)
+                {
+                    case 0:
+                        listViewApps.ItemsSource = apps.OrderBy(app => app.Price);
+                        break;
+                    case 1:
+                        listViewApps.ItemsSource = apps.OrderByDescending(app => app.Price);
+                        break;
+                    case 2:
+                        listViewApps.ItemsSource = apps.OrderBy(app => app.Rating);
+                        break;
+                    case 3:
+                        listViewApps.ItemsSource = apps.OrderByDescending(app => app.Rating);
+                        break;
+                }
+            }
         }
 
         private async void AddToLibrary(object sender, RoutedEventArgs e)
@@ -302,6 +318,14 @@ namespace StrongStoreHandyControlUI
                                           Price = appUser.App.Price,
                                           Category = appUser.App.AppCategories.First().Category.Name
                                       };
+        }
+
+        private void FiltersChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(categoryComboBox.SelectedIndex >= 0)
+            {
+                UpdateStore();
+            }
         }
     }
 }
