@@ -123,9 +123,19 @@
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Text="{Binding Description}" Grid.Row="0" TextWrapping="Wrap"/>
-                                            <Button Grid.Row="1" Click="AddToLibrary" Tag="{Binding Id}">Add to library</Button>
+                                            <TextBlock Grid.Row="1" >Languages:</TextBlock>
+                                            <ListBox ItemsSource="{Binding Lang}" Grid.Row="2">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=Name}" />
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <Button Grid.Row="3" Click="AddToLibrary" Tag="{Binding Id}">Add to library</Button>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>

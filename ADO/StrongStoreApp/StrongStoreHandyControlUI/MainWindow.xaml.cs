@@ -251,7 +251,10 @@ namespace StrongStoreHandyControlUI
                                Description = app.Description,
                                Rating = app.Rating,
                                Price = app.Price,
-                               Category = appCategory.Category.Name
+                               Category = appCategory.Category.Name,
+                               Lang = (from appLanguage in db.AppLanguages
+                                      where appLanguage.AppId == app.Id
+                                      select new { Name = appLanguage.Language.Name }).ToList()
                            };
                 switch (sortComboBox.SelectedIndex)
                 {
