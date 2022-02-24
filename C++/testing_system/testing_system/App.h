@@ -6,7 +6,6 @@
 #include "Include.h"
 using namespace std;
 
-
 class App
 {
 private:
@@ -26,6 +25,5 @@ private:
 	void WriteTests();
 	void Write();
 };
-
 
 #endif

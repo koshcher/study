@@ -6,7 +6,6 @@
 #include "Include.h"
 using namespace std;
 
-
 class User
 {
 protected:
@@ -18,7 +17,6 @@ public:
 	virtual void Run() = 0;
 	virtual void Write() = 0;
 };
-
 
 class Guest : public User
 {

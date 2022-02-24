@@ -3,7 +3,6 @@
 #include "Include.h"
 using namespace std;
 
-
 map<string, Guest> App::Guests;
 vector<Test> App::All_tests;
 
@@ -11,7 +10,6 @@ vector<Test> App::All_tests;
 void App::ReadGuests() {
 	ifstream f("guests.bin", ios::binary);
 	if (f.is_open()) {
-
 		int count;
 		f.read((char*)&count, sizeof(int));
 
@@ -29,7 +27,6 @@ void App::ReadGuests() {
 void App::ReadTests() {
 	ifstream f("tests.bin", ios::binary);
 	if (f.is_open()) {
-
 		int count;
 		f.read((char*)&count, sizeof(int));
 
@@ -54,7 +51,6 @@ void App::Read() {
 void App::WriteGuests() {
 	ofstream f("guests.bin", ios::binary);
 	if (f.is_open()) {
-
 		int tmp_int = Guests.size();
 		f.write((char*)&tmp_int, sizeof(int));
 
@@ -69,7 +65,6 @@ void App::WriteGuests() {
 void App::WriteTests() {
 	ofstream f("tests.bin", ios::binary);
 	if (f.is_open()) {
-
 		int tmp_int = All_tests.size();
 		f.write((char*)&tmp_int, sizeof(int));
 

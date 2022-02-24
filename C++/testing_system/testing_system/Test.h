@@ -6,7 +6,6 @@
 #include "Include.h"
 using namespace std;
 
-
 struct Statistic
 {
 	int right_count;
@@ -14,7 +13,6 @@ struct Statistic
 	int grade;
 	int last_question = 0;
 };
-
 
 class Question
 {
@@ -34,7 +32,6 @@ public:
 	void Export(ofstream& f);
 	void Import(ifstream& f);
 };
-
 
 class Test
 {

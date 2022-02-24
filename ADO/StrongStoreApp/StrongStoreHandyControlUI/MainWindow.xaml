@@ -5,54 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="MainWindow"
         WindowStartupLocation="CenterScreen"
         ShowTitle="True"
-        MinHeight="600" 
+        MinHeight="600"
         MinWidth="800">
     <hc:Window.Resources>
         <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5" />
         </Style>
     </hc:Window.Resources>
     <hc:Window.NonClientAreaContent>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button HorizontalAlignment="Right" Grid.Column="1" Click="ButtonConfig_OnClick" Name="ButtonConfig" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryTextBrush}" hc:IconElement.Geometry="{StaticResource ConfigGeometry}"/>
+            <Button HorizontalAlignment="Right" Grid.Column="1" Click="ButtonConfig_OnClick" Name="ButtonConfig" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryTextBrush}" hc:IconElement.Geometry="{StaticResource ConfigGeometry}" />
             <Popup AllowsTransparency="True" Grid.Column="1" PlacementTarget="{Binding ElementName=ButtonConfig}" HorizontalOffset="-35" Name="PopupConfig" VerticalOffset="6" StaysOpen="False">
                 <Border Background="{DynamicResource SecondaryRegionBrush}" CornerRadius="4" Margin="16" Effect="{StaticResource EffectShadow2}">
                     <StackPanel Button.Click="ButtonSkins_OnClick">
-                        <hc:Divider Width="200" Margin="0,10" Content="Application Theme"/>
+                        <hc:Divider Width="200" Margin="0,10" Content="Application Theme" />
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <Button Tag="{x:Static hc:ApplicationTheme.Light}" Style="{StaticResource ButtonCustom}">
-                                <Border Background="White" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Border Background="White" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" />
                             </Button>
                             <Button Tag="{x:Static hc:ApplicationTheme.Dark}" Style="{StaticResource ButtonCustom}" Margin="10,0,0,0">
-                                <Border Background="Black" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Border Background="Black" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" />
                             </Button>
                         </StackPanel>
 
-                        <hc:Divider Width="200" Margin="0,10" Content="Accent Color"/>
+                        <hc:Divider Width="200" Margin="0,10" Content="Accent Color" />
                         <StackPanel Margin="0,0,0,10" HorizontalAlignment="Center" Orientation="Horizontal">
                             <Button Tag="{Binding ElementName=primaryBorder, Path=Background}" Style="{StaticResource ButtonCustom}">
-                                <Border Name="primaryBorder" Background="#2196F3" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Border Name="primaryBorder" Background="#2196F3" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" />
                             </Button>
                             <Button Tag="{Binding ElementName=warningBorder, Path=Background}" Style="{StaticResource ButtonCustom}" Margin="10,0,0,0">
-                                <Border Name="warningBorder" Background="{DynamicResource WarningBrush}" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Border Name="warningBorder" Background="{DynamicResource WarningBrush}" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" />
                             </Button>
                             <Button Tag="{Binding ElementName=violetBorder, Path=Background}" Style="{StaticResource ButtonCustom}" Margin="10,0,0,0">
-                                <Border Name="violetBorder" Background="#9C27B0" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Border Name="violetBorder" Background="#9C27B0" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" />
                             </Button>
                             <Button Tag="{Binding ElementName=successBorder, Path=Background}" Style="{StaticResource ButtonCustom}" Margin="10,0,0,0">
-                                <Border Name="successBorder" Background="{DynamicResource SuccessBrush}" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}"/>
+                                <Border Name="successBorder" Background="{DynamicResource SuccessBrush}" Width="32" Height="21" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" />
                             </Button>
                         </StackPanel>
-                        <Button HorizontalAlignment="Stretch" Tag="Picker" Content="More Colors" Margin="10"/>
+                        <Button HorizontalAlignment="Stretch" Tag="Picker" Content="More Colors" Margin="10" />
                     </StackPanel>
                 </Border>
             </Popup>
@@ -63,15 +63,15 @@
             <TabItem Header="Store">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
                         <ComboBox Name="sortComboBox" SelectionChanged="FiltersChanged" Margin="10, 0, 0, 0" Grid.Column="0">
@@ -87,30 +87,30 @@
                         <ComboBox Name="categoryComboBox" SelectionChanged="FiltersChanged" Margin="0, 0, 10, 0" Grid.Column="2" ItemsSource="{Binding Category}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Name}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
 
                     <ScrollViewer Grid.Row="1">
-                        <hc:CoverView Margin="10, 0, 12, 0" x:Name="listViewApps" ItemWidth="150" ItemHeight="100" ItemContentHeight="200" >
+                        <hc:CoverView Margin="10, 0, 12, 0" x:Name="listViewApps" ItemWidth="150" ItemHeight="100" ItemContentHeight="200">
                             <hc:CoverView.ItemHeaderTemplate>
                                 <DataTemplate>
                                     <Border Background="#d4e5fc" CornerRadius="10">
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="auto"/>
-                                                <RowDefinition Height="auto"/>
-                                                <RowDefinition Height="auto"/>
-                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
                                             </Grid.RowDefinitions>
-                                            <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center"/>
-                                            <hc:Rate Value="{Binding Rating}" Grid.Row="1" Margin="0, 5, 0, 5" HorizontalAlignment="Center" IsReadOnly="True"/>
-                                            <TextBlock Text="{Binding Category}" Margin="10, 0, 0, 0" Grid.Row="2" FontSize="12"/>
+                                            <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" />
+                                            <hc:Rate Value="{Binding Rating}" Grid.Row="1" Margin="0, 5, 0, 5" HorizontalAlignment="Center" IsReadOnly="True" />
+                                            <TextBlock Text="{Binding Category}" Margin="10, 0, 0, 0" Grid.Row="2" FontSize="12" />
                                             <StackPanel Orientation="Horizontal" Grid.Row="3">
-                                                <TextBlock Text="{Binding Price}" Margin="10, 0, 5, 0" FontSize="14"/>
-                                                <TextBlock Text="$" FontSize="14"/>
+                                                <TextBlock Text="{Binding Price}" Margin="10, 0, 5, 0" FontSize="14" />
+                                                <TextBlock Text="$" FontSize="14" />
                                             </StackPanel>
                                         </Grid>
                                     </Border>
@@ -121,12 +121,12 @@
                                     <Border CornerRadius="10" Margin="10">
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="auto"/>
-                                                <RowDefinition Height="auto"/>
-                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
                                             </Grid.RowDefinitions>
-                                            <TextBlock Text="{Binding Description}" Grid.Row="0" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Description}" Grid.Row="0" TextWrapping="Wrap" />
                                             <TextBlock Grid.Row="1" >Languages:</TextBlock>
                                             <ListBox ItemsSource="{Binding Lang}" Grid.Row="2">
                                                 <ListBox.ItemTemplate>
@@ -146,23 +146,23 @@
             </TabItem>
             <TabItem Header="Library">
                 <ScrollViewer Grid.Row="1">
-                    <hc:CoverView Margin="10" x:Name="libraryApps" ItemWidth="150" ItemHeight="100" ItemContentHeight="200" >
+                    <hc:CoverView Margin="10" x:Name="libraryApps" ItemWidth="150" ItemHeight="100" ItemContentHeight="200">
                         <hc:CoverView.ItemHeaderTemplate>
                             <DataTemplate>
                                 <Border Background="#fcdfd4" CornerRadius="10">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center"/>
-                                        <hc:Rate Value="{Binding Rating}" Grid.Row="1" Margin="0, 5, 0, 5" HorizontalAlignment="Center" IsReadOnly="True"/>
-                                        <TextBlock Text="{Binding Category}" Margin="10, 0, 0, 0" Grid.Row="2" FontSize="12"/>
+                                        <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" />
+                                        <hc:Rate Value="{Binding Rating}" Grid.Row="1" Margin="0, 5, 0, 5" HorizontalAlignment="Center" IsReadOnly="True" />
+                                        <TextBlock Text="{Binding Category}" Margin="10, 0, 0, 0" Grid.Row="2" FontSize="12" />
                                         <StackPanel Orientation="Horizontal" Grid.Row="3">
-                                            <TextBlock Text="{Binding Price}" Margin="10, 0, 5, 0" FontSize="14"/>
-                                            <TextBlock Text="$" FontSize="14"/>
+                                            <TextBlock Text="{Binding Price}" Margin="10, 0, 5, 0" FontSize="14" />
+                                            <TextBlock Text="$" FontSize="14" />
                                         </StackPanel>
                                     </Grid>
                                 </Border>
@@ -173,10 +173,10 @@
                                 <Border CornerRadius="10" Margin="10">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding Description}" Grid.Row="0" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Description}" Grid.Row="0" TextWrapping="Wrap" />
                                         <Button Grid.Row="1" Click="RemoveFromLibrary" Tag="{Binding Id}">Remove from library</Button>
                                     </Grid>
                                 </Border>
@@ -188,20 +188,20 @@
             <TabItem Header="Publish">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Publish your own product</TextBlock>
@@ -231,7 +231,7 @@
                     <hc:Transfer x:Name="publishLanguageTransfer" Margin="5" Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Language}">
                         <hc:Transfer.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </hc:Transfer.ItemTemplate>
                     </hc:Transfer>
@@ -240,7 +240,7 @@
                     <hc:Transfer x:Name="publishCategoryTransfer" Margin="5" Grid.Row="8" Grid.Column="1" ItemsSource="{Binding Category}">
                         <hc:Transfer.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </hc:Transfer.ItemTemplate>
                     </hc:Transfer>
@@ -251,25 +251,25 @@
             <TabItem Header="Login">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="10" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Login</TextBlock>
@@ -287,17 +287,17 @@
 
                     <Grid Grid.Row="1" Grid.Column="0" Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Register as user</TextBlock>
@@ -322,19 +322,18 @@
 
                     <Grid Grid.Row="1" Grid.Column="1" Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-
 
                         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Register as publisher</TextBlock>
 

@@ -3,7 +3,6 @@
 #include "Include.h"
 using namespace std;
 
-
 // Question
 Question::Question() {}
 
@@ -30,7 +29,7 @@ void Question::Input() {
 		cout << "ќтвет не может быть пустым, введите другое" << endl;
 		getline(cin, Right_answer);
 	}
-	
+
 	string for_n;
 	int count;
 	cout << "¬ведите кол-во неправильных ответов: ";
@@ -89,7 +88,7 @@ void Question::Write(ofstream& f) {
 
 	tmp_int = Right_answer.size() + 1;
 	f.write((char*)&tmp_int, sizeof(int));
-	f.write(Right_answer.c_str(), sizeof(char)* tmp_int);
+	f.write(Right_answer.c_str(), sizeof(char) * tmp_int);
 }
 
 void Question::Read(ifstream& f) {
@@ -106,7 +105,6 @@ void Question::Read(ifstream& f) {
 	f.read((char*)&wrong_answers_count, sizeof(int));
 
 	while (wrong_answers_count > 0) {
-
 		f.read((char*)&tmp_int, sizeof(int));
 		tmp_str = new char[tmp_int] {};
 		f.read(tmp_str, sizeof(char) * tmp_int);
@@ -144,9 +142,7 @@ void Question::Import(ifstream& f) {
 		Wrong_answers.push_back(tmp_answer);
 		count--;
 	}
-
 }
-
 
 // Test
 void Test::Add(const Question& sourth) {
@@ -265,7 +261,7 @@ void Test::Input() {
 	cin >> questions_count;
 	getline(cin, for_n);
 
-	while(questions_count > 0) {
+	while (questions_count > 0) {
 		Question tmp_question;
 		tmp_question.Input();
 		Questions.push_back(tmp_question);

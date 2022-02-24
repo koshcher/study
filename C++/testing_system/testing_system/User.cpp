@@ -3,12 +3,10 @@
 #include "Include.h"
 using namespace std;
 
-
 // User
 string User::GetUsername() {
 	return Username;
 }
-
 
 // Guest
 void Guest::Write(ofstream& f) {
@@ -308,7 +306,7 @@ void Guest::Run() {
 		Register();
 		break;
 	}
-	
+
 	choise = 0;
 	while (choise == 0 || choise == 1) {
 		cout << "[0] Просмотреть свои предыдущие результаты тестирования" << endl;
@@ -355,7 +353,7 @@ void Guest::Modify() {
 				getline(cin, tmp_str);
 			}
 		}
-		
+
 		switch (choise) {
 		case 0:
 			Surname = tmp_str;
@@ -383,14 +381,12 @@ void Guest::Modify() {
 	}
 }
 
-
 // Admin
 void Administrator::Write() {
 	ofstream f("admin.bin", ios::binary);
 	if (f.is_open()) {
-		
 		int tmp_int = 1;
-		f.write((char*)& tmp_int, sizeof(int));
+		f.write((char*)&tmp_int, sizeof(int));
 
 		string tmp_str = encryption::Encrypt(Username); // зашифровываем
 		tmp_int = tmp_str.size() + 1;
@@ -409,20 +405,19 @@ void Administrator::Write() {
 void Administrator::Read() {
 	ifstream f("admin.bin", ios::binary);
 	if (f.is_open()) {
-
 		int tmp_int;
 		char* tmp_str;
 
-		f.read((char*)& tmp_int, sizeof(int));
+		f.read((char*)&tmp_int, sizeof(int));
 
 		if (tmp_int == 1) {
-			f.read((char*)& tmp_int, sizeof(int));
+			f.read((char*)&tmp_int, sizeof(int));
 			tmp_str = new char[tmp_int] {};
 			f.read(tmp_str, sizeof(char) * tmp_int);
 			Username = encryption::Decrypt(tmp_str);
 			delete[] tmp_str;
 
-			f.read((char*)& tmp_int, sizeof(int));
+			f.read((char*)&tmp_int, sizeof(int));
 			tmp_str = new char[tmp_int] {};
 			f.read(tmp_str, sizeof(char) * tmp_int);
 			Password = encryption::Decrypt(tmp_str);
@@ -453,7 +448,7 @@ void Administrator::Login() {
 		cout << "Пароль неверный, введите ещё раз:" << endl;
 		getline(cin, input_username);
 	}
-	  
+
 	cout << "Вы успешно вошли" << endl;
 }
 
@@ -476,7 +471,7 @@ void Administrator::Register() {
 
 void Administrator::AdminManagement() {
 	string for_n;
-	int choise = 0;	
+	int choise = 0;
 	cout << "[0] Изменить логин" << endl;
 	cout << "[1] Изменить пароль" << endl;
 	cout << "[другое] Вернуться обратно" << endl;
@@ -596,7 +591,7 @@ void Administrator::ShowResultsUser() {
 	if (iter != App::Guests.end()) {
 		iter->second.ShowAllTestRes();
 		return;
-	} 
+	}
 	cout << "Пользователь не найден" << endl;
 }
 
