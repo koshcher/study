@@ -1,0 +1,21 @@
+.container {
+	margin: 5% 10% 5% 10%;
+	font-family: Garamond, Arial;
+}
+
+.title {
+	text-align: center;
+}
+
+#brand {
+	font-family: Helvetica;
+	color: #7D50EA;
+}
+
+#underline {
+	color: #856BC5;
+}
+
+#interests {
+	font-family: "Time New Romans";
+}
