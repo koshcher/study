@@ -30,11 +30,11 @@ namespace StrongBlog.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Post obj)
         {
-            if(obj.Title == obj.Publisher)
+            if (obj.Title == obj.Publisher)
             {
                 ModelState.AddModelError("Title", "Title cannot equals Publisher");
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _db.Posts.Add(obj);
                 _db.SaveChanges();
@@ -47,13 +47,13 @@ namespace StrongBlog.Controllers
         // GET
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
             var postFromDb = _db.Posts.Find(id);
 
-            if(postFromDb == null)
+            if (postFromDb == null)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace StrongBlog.Controllers
         public IActionResult DeletePOST(int? id)
         {
             var obj = _db.Posts.Find(id);
-            if(obj == null)
+            if (obj == null)
             {
                 return NotFound();
             }
@@ -128,7 +128,7 @@ namespace StrongBlog.Controllers
             _db.Posts.Remove(obj);
             _db.SaveChanges();
             TempData["success"] = "Post deleted successfully";
-         
+
             return RedirectToAction("Index");
         }
     }

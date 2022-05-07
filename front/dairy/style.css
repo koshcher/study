@@ -1,0 +1,36 @@
+nav {
+    background-color: #1b5589;
+}
+
+
+.arrow {
+    height: 2.25vw;
+    width: fit-content;
+    position: relative;
+}
+
+.arrow p {
+    font-size: 1vw;
+    padding-top: 0.3vw;
+}
+
+.left::after, .right::after {
+    content: '';
+    height: 1.55vw;
+    width: 1.55vw;
+    position: absolute;
+    top: 11%;
+    border-top: #dfdfdf solid 1px;
+    border-left: #dfdfdf solid 1px;
+}
+
+.left::after {
+    left: -0.8vw;
+    transform: rotate(-45deg);
+}
+  
+  /* changed transform:rotate deg's, top and right */
+.right::after {
+    right: -0.8vw;
+    transform: rotate(135deg);
+}

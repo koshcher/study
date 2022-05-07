@@ -1,0 +1,31 @@
+body {
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 10px;
+    text-align: center;
+}
+
+tr:nth-child(odd) {
+    background-color:lightgray
+}
+
+tr:first-child, td:first-child {
+    background-color:lightsteelblue;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+}
+
+tr:first-child {
+    top: 0;
+}
+
+td:first-child {
+    font-weight: bold;
+    left: 0;
+}

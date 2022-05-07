@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: whitesmoke;
+}
+
+.card {
+    background-color: #9fcdcd;
+    border-radius: 1.5vw;
+    margin: 10vw auto;
+    height: 50vw;
+    width: 75vw;
+    overflow: hidden;
+}
+
+.card-title {
+    color: white;
+    background-color: #db6423;
+    position: relative;
+    top: 19.5vw;
+    left: 9vw;
+    z-index: 1;
+    width: 51vw;
+    padding: 1.4vw;
+    padding-left: 6vw;
+    font-size: 2.2vw;
+}
+
+.flag {
+    height: 40vw;
+    position: relative;
+    left: 46.5vw;
+    bottom: 19vw;
+}
+
+.card-body {
+    position: relative;
+    top: 10vw;
+    margin: 3vw 4vw;
+    color: #466c6f;
+}
+
+.card input {
+    background-color: #a9d2d2;
+    border: none;
+    border-bottom: 1.5px solid #466c6f;
+    line-height: 4.7vw;
+    padding-left: 1.2vw;
+    margin-bottom: 2.2vw;
+    font-size: 1.7vw;
+}
+
+.card label {
+    display: block;
+    font-size: 1.7vw;
+    margin-bottom: 1vw;
+}
+
+#number, #name {
+    width: 38vw;
+}
+
+#number {
+    top: 20vw;
+    left: -10vw;
+}
+
+.card label[for="number"] {
+    top: 17vw;
+    left: -10vw;
+}
+
+#month, #year, #cvv {
+    width: 10vw;
+}
+
+.flex {
+    width: 39.5vw;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}

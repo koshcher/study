@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlogDbLibrary.Models;
 using Microsoft.EntityFrameworkCore;
-using BlogDbLibrary.Models;
 
 namespace BlogDbLibrary
 {
@@ -21,4 +16,3 @@ namespace BlogDbLibrary
         public DbSet<Post> Posts { get; set; }
     }
 }
-

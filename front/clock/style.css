@@ -1,0 +1,63 @@
+.content {
+    background-color:#1c1124;
+}
+
+.clock {
+    border: 3px solid white;
+    border-radius: 100%;
+    position: relative;
+    width: 50%;
+    margin: auto;
+}
+
+.clock:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.dot {
+    background-color: white;
+    border: 100% solid white;
+    border-radius: 100%;
+    position: absolute;
+    width: 3%;
+    height: 3%;
+    margin: 48.5%;
+}
+
+#minut, #hour, #second {
+    position: absolute;
+    background-color: white;
+    border: 100% solid white;
+    border-radius: 10px;
+    height: 1.5%;
+    margin: 49.25% 50%;
+    transform-origin: 0% 50%;
+    animation-name: arrow;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes arrow {
+    to {transform: rotate(360deg);}
+}
+
+#second {
+    width: 45%;
+    animation-duration: 60s;
+    border-color: indianred;
+    background-color: indianred;
+    height: 1%;
+    margin: 49.5% 50%;
+}
+
+#minut {
+    width: 35%;
+    animation-duration: 3600s;
+}
+
+#hour {
+    width: 20%;
+    animation-duration: 86400s;
+}

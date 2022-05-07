@@ -1,0 +1,42 @@
+.english-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.english-table th, td {
+    text-align: center;
+}
+
+.english-table thead {
+    background-color: lightcoral;
+}
+
+.english-table tbody {
+    background-color: #c1d3f7;
+}
+
+.english-table td:first-child {
+    background-color: #e8b7b7;
+}
+
+.coral {
+    background-color: #e8b7b7;
+}
+
+.english-table td, .english-table th {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.left {
+    text-align: left;
+}
+
+.small {
+    font-size: small;
+}
+
+.cursor {
+    font-style: italic;
+}
