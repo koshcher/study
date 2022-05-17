@@ -1,6 +1,23 @@
-let res = document.getElementById("res");
-let firstNum = document.getElementById("firstNum");
-let secondNum = document.getElementById("secondNum");
+document.addEventListener('DOMContentLoaded', () => {
+    let res = document.getElementById("res");
+    let firstNum = document.getElementById("firstNum");
+    let secondNum = document.getElementById("secondNum");
+
+    let options = {
+        '+': sum,
+        '-': minus,
+        '*': multyply,
+        '/': divide,
+    }
+
+    const operationBtns = document.querySelectorAll('input.btn');
+    operationBtns.forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            res.textContent = doOperation(options[event.target.value]);
+        });
+    });
+    
+});
 
 const sum = (firstNum, secondNum) => firstNum + secondNum;
 const minus = (firstNum, secondNum) => firstNum - secondNum;
@@ -11,26 +28,8 @@ function doOperation(operate) {
     let firstNumRightType = Number(firstNum.value);
     let secondNumRightType = Number(secondNum.value);
     if(typeof firstNumRightType == 'number' && typeof secondNumRightType == 'number') {
-        res.innerText = operate(firstNumRightType, secondNumRightType);
+        return operate(firstNumRightType, secondNumRightType);
     } else {
-        alert('Input is incorrect');
+        return 'Input is incorrect';
     }
 };
-
-/*
-function sum(firstNum, secondNum) {
-    return firstNum + secondNum;
-};
-
-function minus(firstNum, secondNum) {
-    return firstNum - secondNum;
-};
-
-function divide(firstNum, secondNum) {
-    return firstNum / secondNum;
-};
-
-function multyply(firstNum, secondNum) {
-    return firstNum * secondNum;
-};
-*/
