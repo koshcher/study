@@ -149,9 +149,15 @@ class App {
         });
     }
 
+    buildTotal() {
+        let sum = this.db.sum;
+        document.write(`<h3 style="text-align: center;">Total: ${sum}$</h3>`);
+    }
+
     build() {
         this.buildAddForm();
         this.buildList();
+        this.buildTotal();
     }
 }
 
