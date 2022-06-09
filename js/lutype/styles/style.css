@@ -1,0 +1,105 @@
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    background-color: #1a253b;
+}
+
+.container {
+    margin: auto;
+    max-width: 900px;
+    padding: 1vw;
+}
+
+h1 {
+    color: #c13657;
+    
+}
+
+.text-center {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn {
+    border: 3px solid #c13657;
+    border-radius: 8px;
+    background-color: #c13657;
+    color: #1a253b;
+    padding: 6px 16px;
+    margin: 5px;
+}
+
+.btn:hover {
+    border-color: #cd4c6a;
+    background-color: #cd4c6a;
+}
+
+.btn-light {
+    border: 3px solid #1a253b;
+    border-radius: 8px;
+    padding: 6px 16px;
+    margin: 5px;
+}
+
+.btn-light:hover {
+    border-color: #273759;
+    background-color:  #273759;
+}
+
+
+.btn-block {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 7vw;
+}
+
+.download-btn {
+    border-radius: 8px;
+    background-color: #c13657;
+    color: #1a253b;
+    line-height: 40px;
+    padding: 5px 15px;
+}
+
+.download-btn:hover {
+    background-color: #cd4c6a;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.flex > p, table {
+    margin: 0 3vw;
+} 
+
+p {
+    line-height: 1.45em;
+}
+
+td {
+    padding: 0;
+    padding-left: 3vw;
+}
+
+.red {
+    color: #c13657;
+}
+
+#inputTextP {
+    word-wrap:break-word;
+}
+
+.flex-between {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+    align-items: center;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lutype</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/keyboard.css">
+    <link rel="stylesheet" href="styles/slider.css">
+    <link rel="icon" href="img/keyboard-icon.png">
+</head> 
+<body>
+  <div class="container">
+    <div class="flex-between">
+      <h1 class="text-center">Lutype</h1>
+      <div class="slidecontainer">
+        <span>Choose difficulty:</span>
+        <span id="difficultyValue">1</span>
+        <input type="range" min="1" max="3" value="1" id="difficultyRange" class="slider">
+      </div>
+    </div>
+        <!--
+        <div class="btn-block">
+            <a class="btn-light" href="https://github.com/roman-koshchei/lumin" target="_blank" rel="noopener noreferrer">
+                View on Github
+            </a>
+            <a class="btn" href="#installation">Get started</a>
+        </div>
+        -->
+    <div class="text-center">
+      <p id="textToTypeP"></p>
+      <p id="inputTextP" style="height: 20px;"></p>
+    </div>
+    <div id="layout">
+      <div class="row">
+        <div class="key pinky">`</div>
+        <div id="Digit1" class="key pinky">1</div>
+        <div id="Digit2" class="key ring-l">2</div>
+        <div id="Digit3" class="key middle">3</div>
+        <div id="Digit4" class="key index-l">4</div>
+        <div id="Digit5"class="key index-l">5</div>
+        <div id="Digit6"class="key index-r">6</div>
+        <div id="Digit7"class="key index-r">7</div>
+        <div id="Digit8"class="key middle">8</div>
+        <div id="Digit9"class="key ring-r">9</div>
+        <div id="Digit0"class="key pinky">0</div>
+        <div id="Minus" class="key pinky">-</div>
+        <div id="Equal"class="key pinky">=</div>
+        <div class="key key-xl pinky">Back</div>
+      </div>
+      <div class="row">
+        <div class="key key-base pinky">Tab</div>
+        <div id="KeyQ" class="key pinky">q</div>
+        <div id="KeyW" class="key ring-l">w</div>
+        <div id="KeyE" class="key middle">e</div>
+        <div id="KeyR" class="key index-l">r</div>
+        <div id="KeyT"class="key index-l">t</div>
+        <div id="KeyY"class="key index-r">y</div>
+        <div id="KeyU"class="key index-r">u</div>
+        <div id="KeyI"class="key middle">i</div>
+        <div id="KeyO"class="key ring-r">o</div>
+        <div id="KeyP"class="key pinky">p</div>
+        <div id="BracketLeft "class="key pinky">[</div>
+        <div id="BracketRight" class="key pinky">]</div>
+        <div class="key key-base pinky">\</div>
+      </div>
+      <div class="row">
+        <div class="key key-lg pinky">Caps</div>
+        <div id="KeyA" class="key pinky">a</div>
+        <div id="KeyS" class="key ring-l">s</div>
+        <div id="KeyD" class="key middle">d</div>
+        <div id="KeyF" class="key index-l" id="a">f</div>
+        <div id="KeyG" class="key index-l">g</div>
+        <div id="KeyH" class="key index-r">h</div>
+        <div id="KeyJ" class="key index-r">j</div>
+        <div id="KeyK" class="key middle">k</div>
+        <div id="KeyL" class="key ring-r">l</div>
+        <div id="Semicolon" class="key pinky">;</div>
+        <div id="Quote" class="key pinky">'</div>
+        <div class="key key-2xl pinky">Return</div>
+      </div>
+      <div class="row">
+        <div class="key key-2xl pinky">Shift</div>
+        <div id="KeyZ" class="key pinky">z</div> 
+        <div id="KeyX" class="key ring-l">x</div>
+        <div id="KeyC"class="key middle">c</div>
+        <div id="KeyV"class="key index-l">v</div>
+        <div id="KeyB"class="key index-l">b</div>
+        <div id="KeyN"class="key index-r">n</div>
+        <div id="KeyM"class="key index-r">m</div>
+        <div id="Comma"class="key middle">,</div>
+        <div id="Period" class="key ring-r">.</div>
+        <div id="Slash" class="key pinky">/</div>
+        <div class="key key-3xl pinky">Shift</div>
+    </div>   
+    <div class="row">
+      <div id="Space" class="key key-4xl thumb">Space</div>  
+    </div>
+      
+    <!--
+      <div  >
+        <div class="key key-lg thumb">Control</div>
+        <div class="key key-sm thumb">Win</div>
+        <div class="key key-sm thumb">Alt</div>
+        <div class="key key-4xl thumb">Space</div>    
+        <div class="key key-sm thumb">Menu</div>
+        <div class="key key-base thumb">Alt</div>
+        <div class="key key-lg thumb">Control</div>
+        <div class="key key-sm thumb">Win</div>
+      </div>
+    -->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

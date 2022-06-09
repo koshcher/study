@@ -1,0 +1,5 @@
+C:/Users/roman/Git/koshcher/study/c-plus-plus/cmakeTry/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/roman/Git/koshcher/study/c-plus-plus/cmakeTry/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/roman/Git/koshcher/study/c-plus-plus/cmakeTry/out/build/x64-debug/cmakeTry/CMakeFiles/cmakeTry.dir
+C:/Users/roman/Git/koshcher/study/c-plus-plus/cmakeTry/out/build/x64-debug/cmakeTry/CMakeFiles/edit_cache.dir
+C:/Users/roman/Git/koshcher/study/c-plus-plus/cmakeTry/out/build/x64-debug/cmakeTry/CMakeFiles/rebuild_cache.dir

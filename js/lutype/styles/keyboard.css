@@ -1,0 +1,81 @@
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.key {
+    border-radius: 0.5vw;
+    width: 5.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3vw;
+    height: 5.5vw;
+    max-height: 45px;
+    font-size: 80%;
+}
+
+#heatmap {
+    color: #fff;
+}
+
+#layout {
+    color: #1a253b;
+}
+
+.key-sm {
+    width: 6.4vw;
+}
+
+.key-base {
+    width: 9vw;
+}
+
+.key-lg {
+    width: 10.5vw;
+}
+
+.key-xl {
+    width: 12.5vw;
+}
+
+.key-2xl {
+    width: 13.5vw;
+}
+
+.key-3xl {
+    width: 16.5vw;
+}
+
+.key-4xl {
+    width: 28.5vw;
+}
+
+.pinky {
+    background-color: #9b98bc;
+}
+
+.ring-l {
+    background-color: #9eaec1;
+}
+
+.ring-r {
+    background-color: #d09db5;
+}
+
+.middle {
+    background-color:#9b98bc;
+}
+
+.index-l {
+    background-color: #9eaec1;
+}
+
+.index-r {
+    background-color: #d09db5;
+}
+
+.thumb {
+    background-color: #8e7a9b;
+}

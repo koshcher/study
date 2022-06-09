@@ -1,7 +1,13 @@
-class CheckItem {
-    _count;
-    _name;
-    _price;
+interface IItem {
+    _count : number;
+    _name: string;
+    _price: number;
+}
+
+class Item {
+    _count : number;
+    _name: string;
+    _price: number;
 
     constructor(name, count, price) {
         this.name = name;
@@ -35,23 +41,24 @@ class CheckItem {
     get fullPrice() {return this._price * this._count};
 }
 
-class DatabaseService {
-    add(checkItem) {
+
+class DbService {
+    add(checkItem : IItem) {
         localStorage.setItem(
-            checkItem.name, JSON.stringify
+            checkItem._name, JSON.stringify
             ({
-                count: checkItem.count,
-                price: checkItem.price
+                count: checkItem._count,
+                price: checkItem._price
             })
         );
     }
 
-    increaseCount(item) {
+    increaseCount(item : IItem) {
         localStorage.setItem(
-            item.name, JSON.stringify
+            item._name, JSON.stringify
             ({
-                count: item.count + 1,
-                price: item.price
+                count: item._count + 1,
+                price: item._price
             })
         );
     }
@@ -77,7 +84,7 @@ class DatabaseService {
         let keys = Object.keys(localStorage);
         for (let i = 0; i < keys.length; i++) {
             let info = JSON.parse(window.localStorage.getItem(keys[i]));
-            resList.push(new CheckItem(keys[i], info.count, info.price));
+            resList.push(new Item(keys[i], info.count, info.price));
         }
         return resList;
     }
@@ -92,9 +99,10 @@ class DatabaseService {
     }
 }
 
-class App {
+class CheckApp {
+    db;
     constructor() {
-        this.db = new DatabaseService();
+        this.db = new DbService();
     }
 
     buildList() {
@@ -108,14 +116,12 @@ class App {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">${list[i].name}</h5>
                 <div>
-                <div class="btn-group-vertical btn-group-sm">
-                    <button class="btn btn-success" id="upBtn${i}"><i class="bi bi-caret-up-fill"></i></button>
-                    <button class="btn btn-danger" id="downBtn${i}"><i class="bi bi-caret-down-fill"></i></button>
-                </div>
-                x ${list[i].count}
+                    <button class="btn btn-success" id="upBtn${i}">up</button>
+                    <button class="btn btn-warning" id="downBtn${i}">down</button>
+                    x${list[i].count}
                 </div>
                 <h6>${list[i].fullPrice}$</h6>
-                <button typ class="btn btn-dark" id="deleteBtn${i}">delete</button>
+                <button typ class="btn btn-danger" id="deleteBtn${i}">delete</button>
             </li>
             `;
         }
@@ -145,7 +151,7 @@ class App {
             } else {
                 let fields = addForm.elements['text'].value.split(':');
                 if(fields.length == 3) {
-                    this.db.add(new CheckItem(fields[0], Number(fields[1]), Number(fields[2])));
+                    this.db.add(new Item(fields[0], Number(fields[1]), Number(fields[2])));
                 } 
             }
         });
@@ -153,7 +159,6 @@ class App {
 
     buildTotal() {
         let sum = this.db.sum;
-        //document.getElementById("container").innerHTML +=`<hr><h3 style="text-align: center;">Total: ${sum}$</h3>`;
         document.write(`<h3 style="text-align: center;">Total: ${sum}$</h3>`);
     }
 
@@ -164,5 +169,5 @@ class App {
     }
 }
 
-let app = new App();
-app.build();
+let checkApp = new CheckApp();
+checkApp.build();
