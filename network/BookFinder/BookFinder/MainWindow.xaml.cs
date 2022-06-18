@@ -22,100 +22,65 @@ namespace BookFinder
   /// </summary>
   public partial class MainWindow : Window
   {
+    Library library = new Library();  
+
     public MainWindow()
     {
       InitializeComponent();
     }
 
-    private string? GetBookPageLink(string data)
-    {
-      int booklinkIndex = data.IndexOf("booklink");
-      if(booklinkIndex > -1)
-      {
-        data = data.Substring(booklinkIndex);
-        int hrefIndex = data.IndexOf("href=\"") + 6;
-        string link = "";
-        while(data[hrefIndex] != '\"')
-        {
-          link += data[hrefIndex];
-          hrefIndex++;
-        }
-        return link;
-      }
-      return null;
-    }
-
-    private string? GetBookTextLink(string data)
-    {
-      int textlinkIndex = data.IndexOf("title=\"Download\">Plain Text UTF-8");
-      if (textlinkIndex > -1)
-      {
-        data = data.Substring(0, textlinkIndex);
-        int hrefIndex = data.LastIndexOf("href=\"") + 6;
-        string link = "";
-        while (data[hrefIndex] != '\"')
-        {
-          link += data[hrefIndex];
-          hrefIndex++;
-        }
-        return link;
-      }
-      return null;
-    }
-
-    private string GetBookText(string link)
-    {
-      HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("https://www.gutenberg.org{0}", link));
-      HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-      using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-      {
-        return reader.ReadToEnd();
-      }
-    }
-
-
     private void FindBtn_Click(object sender, RoutedEventArgs e)
     {
       if(searchTextBox.Text.Trim().Length > 0)
+      {
+        library.LoadSearch(searchTextBox.Text.Trim());
+        if (library.Books.Count > 0)
         {
-        string requestUrl = string.Format("https://www.gutenberg.org/ebooks/search/?query={0}&submit_search=Go", searchTextBox.Text.ToLower());
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUrl);
-        request.Method = "GET";
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+          bookListBox.ItemsSource = null; // clear
+          bookListBox.ItemsSource = library.Books;
+        }
+        else
         {
-          string data = reader.ReadToEnd(); // html page
-        
-          string? bookPageLink = GetBookPageLink(data);
-          if(bookPageLink != null)
-          {
-            HttpWebRequest pageRequest = (HttpWebRequest)WebRequest.Create(string.Format("https://www.gutenberg.org{0}", bookPageLink));
-            HttpWebResponse pageResponse = (HttpWebResponse)pageRequest.GetResponse();
-            using (StreamReader pageReader = new StreamReader(pageResponse.GetResponseStream()))
-            {
-              outputTextBlock.Text = GetBookText(GetBookTextLink(pageReader.ReadToEnd()));
-            }
-          }
-          else
-          {
-            outputTextBlock.Text = "Book are not found";
-          }
+          MessageBox.Show("Can't find book with this name");
         }
       } else
       {
-        outputTextBlock.Text = "Please enter something";
+        MessageBox.Show("Please enter something");
       }
     }
 
-    /*
-    private void AddToOutput(string message)
+    private void ShowPopularBtn_Click(object sender, RoutedEventArgs e)
     {
-      Dispatcher.BeginInvoke(() =>
+      library.LoadMostPopular();
+      bookListBox.ItemsSource = null; // clear
+      bookListBox.ItemsSource = library.Books;
+    }
+
+    private void bookListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      if(bookListBox.Items.Count > 0)
       {
-        //messageTextBlock.Text += Environment.NewLine;
-        outputTextBox.Text += string.Format("{0}\n", message);
-      }, null);
-    }*/
+        bookListBox.Visibility = Visibility.Hidden;
+        returnBtn.IsEnabled = true;
+        findBtn.IsEnabled = false;
+        showPopularBtn.IsEnabled = false;
+        searchTextBox.IsEnabled = false;
+
+        outputTextBlock.Text = ((Book)bookListBox.SelectedItem).Text;
+
+        outputScrollViewer.Visibility = Visibility.Visible;
+      }
+    }
+
+    private void returnBtn_Click(object sender, RoutedEventArgs e)
+    {
+      bookListBox.Visibility = Visibility.Visible;
+      outputScrollViewer.Visibility = Visibility.Hidden;
+      returnBtn.IsEnabled = false;
+      findBtn.IsEnabled = true;
+      showPopularBtn.IsEnabled = true;
+      searchTextBox.IsEnabled = true;
+      outputTextBlock.Text = "";
+    }
   }
 }
