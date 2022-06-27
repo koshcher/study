@@ -1,0 +1,58 @@
+<div class="flex">
+  <button (click)="change()">change</button>
+  <input type="text" [(ngModel)]="first">
+  <input type="text" [(ngModel)]="second">
+</div>
+
+<hr>
+
+<div class="flex col">
+  <input type="text" [(ngModel)]="inputCount" (blur)="generate()">
+  <div *ngFor="let i of res">
+    <input value="{{i}}">
+  </div>
+</div>
+
+<hr>
+
+<div class="flex col">
+  <textarea [(ngModel)]="matrixStr" (input)="createMatrix()"></textarea>
+  <button (click)=" createMatrix()">matrix</button>
+  <div *ngFor="let row of matrix" class="flex">
+    <div *ngFor="let num of row" [style.backgroundColor]="num == '1' ? 'black' : 'yellow'" class="box"></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="flex col">
+  <input type="range" [(ngModel)]="settings.width" min="1" max="100">
+  <input type="range" [(ngModel)]="settings.height" min="1" max="100">
+  <input type="range" [(ngModel)]="settings.rotate" max="360">
+
+  <div class="blue" [style.width]="settings.width.toString()+'px'" [style.height]="settings.height.toString()+'px'"
+    [style.transform]="'rotate(' + (settings.rotate/ 720).toString()+'turn)'"></div>
+
+</div>
+
+<hr>
+
+<div class="flex col">
+  <table (mouseover)="makeColor($event)" (mouseout)="unmakeColor($event)">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+</div>

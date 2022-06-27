@@ -1,0 +1,27 @@
+<h1>Pipework</h1>
+
+<h2>Default pipes</h2>
+<p>currency {{"15" | currency:"UAH":"symbol-narrow" }}</p>
+<p>percent {{0.25 | percent }}</p>
+<p>uppercase {{"UpperCase" | uppercase }}</p>
+<p>lowercase {{"LowerCase" | lowercase }}</p>
+<p>date {{date | date:"shortDate" }}</p>
+
+<hr>
+
+<h2>Custom pipes</h2>
+<p>phone: {{phone | phone}}</p>
+<p>name: {{name | name}}</p>
+<p>math: {{"4*5-9" | math}}</p>
+
+<ul *ngFor="let student of students; let i = index">
+  <li>{{i + 1}}. {{student | student}}</li>
+</ul>
+
+<div [ngSwitch]="fruit">
+  <p *ngSwitchCase="'apple'">Wow this is apple</p>
+  <p *ngSwitchCase="'banana'">Wow this is banana</p>
+  <p *ngSwitchDefault>What is this?</p>
+</div>
+
+<p *ngIf="sayHowCoolIam" id="cool">I am super cool, haha</p>

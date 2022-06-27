@@ -1,0 +1,36 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input,
+  button {
+    margin: 5px;
+    padding: 5px;
+  }
+}
+
+.col {
+  flex-direction: column;
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+}
+
+.blue {
+  background-color: cornflowerblue;
+}
+
+td {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+}
+
+table {
+  height: 500px;
+  width: 500px;
+  border: 2px solid black;
+}

@@ -1,0 +1,21 @@
+<h1>{{num | format}}</h1>
+<h2>Hello {{name}}</h2>
+<p>{{item.login}}. Is task completed: {{item.isComplete}}. My id:{{item.id}}. Don't share my password:{{item.password}}
+</p>
+
+<p>{{array | forray}}</p>
+<p>{{array | forray:2}}</p>
+<p>{{array | forray:1:4}}</p>
+
+<h1>{{dateDot | date}} {{dateSlash | date}}</h1>
+
+<hr>
+
+<ul *ngFor="let num of array; let i=index">
+  <li>{{i + 1}}. {{num}}</li>
+</ul>
+
+<p *ngIf="array.length == 0; else Exist">No nums</p>
+<ng-template #Exist>
+  <p>AAAAAAAAAAAAAAAAAAAAAAAa</p>
+</ng-template>
