@@ -17,7 +17,6 @@
 
 <div class="flex col">
   <textarea [(ngModel)]="matrixStr" (input)="createMatrix()"></textarea>
-  <button (click)=" createMatrix()">matrix</button>
   <div *ngFor="let row of matrix" class="flex">
     <div *ngFor="let num of row" [style.backgroundColor]="num == '1' ? 'black' : 'yellow'" class="box"></div>
   </div>
@@ -26,13 +25,31 @@
 <hr>
 
 <div class="flex col">
-  <input type="range" [(ngModel)]="settings.width" min="1" max="100">
-  <input type="range" [(ngModel)]="settings.height" min="1" max="100">
+  <input type="range" [(ngModel)]="settings.width" min="1" max="200">
+  <input type="range" [(ngModel)]="settings.height" min="1" max="200">
   <input type="range" [(ngModel)]="settings.rotate" max="360">
 
   <div class="blue" [style.width]="settings.width.toString()+'px'" [style.height]="settings.height.toString()+'px'"
     [style.transform]="'rotate(' + (settings.rotate/ 720).toString()+'turn)'"></div>
+</div>
 
+<hr>
+
+<div class="flex col">
+  <h2>THe biggest</h2>
+  <div class="flex" (click)="changeMostE($event)">
+    <button (click)="changeMost('car')">car</button>
+    <button (click)="changeMost('aircraft')">aircraft</button>
+    <button (click)="changeMost('ship')">ship</button>
+  </div>
+  <p>{{most}}</p>
+</div>
+
+<hr>
+
+<div class="flex">
+  <button (click)="addBlock()">Add Block</button>
+  <div *ngFor="let block of blocks; let i = index" [style.backgroundColor]="block" class="box">{{i}}</div>
 </div>
 
 <hr>

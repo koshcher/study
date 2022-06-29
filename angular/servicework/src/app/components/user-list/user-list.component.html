@@ -1,0 +1,13 @@
+<div class="col">
+  <div class="row">
+    <input type="text" [(ngModel)]="newUser.name" placeholder="name">
+    <input type="text" [(ngModel)]="newUser.lastName" placeholder="last name">
+    <button (click)="addUser()">Add user</button>
+  </div>
+
+  <ul>
+    <li *ngFor="let user of users">{{user.name}} {{user.lastName}}
+      <!-- <button (click)="removeUser(user.name)">delete</button> -->
+    </li>
+  </ul>
+</div>

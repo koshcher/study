@@ -1,0 +1,65 @@
+<div class="col">
+  <h1>Enter movie name</h1>
+  <input type="text" [(ngModel)]="title" placeholder="title">
+  <input type="number" [(ngModel)]="year" placeholder="year">
+
+  <div class="row">
+    Short plot: <input type="radio" value="short" [(ngModel)]="plot">
+    Full plot:<input type="radio" value="full" [(ngModel)]="plot">
+  </div>
+  <button (click)="getMovie()">Find</button>
+
+  <div *ngIf="movie != null" class="row">
+    <table>
+      <tr>
+        <td>Title:</td>
+        <td>{{movie.title}}</td>
+      </tr>
+      <tr>
+        <td>Year:</td>
+        <td>{{movie.year}}</td>
+      </tr>
+      <tr>
+        <td>Rating:</td>
+        <td>{{movie.rating}}</td>
+      </tr>
+      <tr>
+        <td>Duration:</td>
+        <td>{{movie.duration}}</td>
+      </tr>
+      <tr>
+        <td>Producer:</td>
+        <td>{{movie.producer}}</td>
+      </tr>
+      <tr>
+        <td>Actors:</td>
+        <td>{{movie.actors}}</td>
+      </tr>
+      <tr>
+        <td>Plot:</td>
+        <td>{{movie.plot}}</td>
+      </tr>
+    </table>
+
+    <img src={{movie.img}}>
+  </div>
+
+
+  <div class="col">
+    <p *ngIf="movie != undefined">{{movie.Title}}</p>
+
+  </div>
+
+  <!-- <p *ngIf="qwerty != null">{{qwerty.sfbs}}</p> -->
+</div>
+
+<hr>
+
+<div class="col">
+  <table>
+    <tr *ngFor="let user of users">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+    </tr>
+  </table>
+</div>

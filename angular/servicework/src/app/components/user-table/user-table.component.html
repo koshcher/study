@@ -1,0 +1,15 @@
+<div class="col">
+  <div class="row">
+    <!-- <input type="text" [(ngModel)]="newUser.name" placeholder="name"> -->
+    <!-- <input type="text" [(ngModel)]="newUser.lastName" placeholder="last name"> -->
+    <button (click)="addUser()">Add user</button>
+  </div>
+
+  <table>
+    <tr *ngFor="let user of users">
+      <td>{{user.name}}</td>
+      <td>{{user.lastName}}</td>
+      <!-- <button (click)="removeUser(user.name)">delete</button> -->
+    </tr>
+  </table>
+</div>

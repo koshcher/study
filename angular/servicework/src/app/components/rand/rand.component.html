@@ -1,0 +1,12 @@
+<div class="col">
+  <div class="row">
+    <input type="number" [(ngModel)]="start" placeholder="start">
+    <input type="number" [(ngModel)]="end" placeholder="end">
+    <input type="number" [(ngModel)]="count" placeholder="count">
+  </div>
+  <button (click)="generate()">generate</button>
+
+  <ul>
+    <li *ngFor="let num of nums">{{num}}</li>
+  </ul>
+</div>

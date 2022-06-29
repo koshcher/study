@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input,
+  button {
+    margin: 5px;
+    padding: 5px
+  }
+}
+
+.row {
+  @include flex;
+  flex-direction: row;
+
+  img {
+    height: 300px;
+  }
+}
+
+.col {
+  @include flex;
+  flex-direction: column;
+}
+
+td,
+th {
+  padding: 5px;
+  border: 1px solid black;
+}
